@@ -18,7 +18,7 @@
 
 - 函数类别
 
-  主要分为`Func`与`Action`，`Func`有返回值，`Action`无返回值（void）。
+  主要分为`Func<..., R>`与`Action<...>`，`Func`有返回值，`Action`无返回值（`void`）。
 
 - 异常标识
 
@@ -34,14 +34,51 @@
 
 ### 主要类型
 
-| 接口 | 返回 | 抛出 |
-| ---- | ---- | ---- |
-| Action | `void` | 无 |
-| ActionE | `void` | `Exception` |
-| ActionX | `void` | `X`（任意指定类型） |
-| Func | `R` | 无 |
-| FuncE | `R` | `Exception` |
-| FuncX | `R` | `X`（任意指定类型） |
+<table>
+<tbody>
+<tr>
+  <td>函数原型</td>
+  <td>异常声明</td>
+  <td>函数类型</td>
+  <td>入参个数</td>
+</tr>
+<tr>
+  <td rowspan="3"><code><b>void</b> invokeV(...)</code></td>
+  <td><code>/* none */</code></td>
+  <td>Action</td>
+  <td rowspan="6">0~9个，如：
+    <ul>
+      <li><code>Action</code> - 无参，无返回值的函数（无参时无后缀）</li>
+      <li><code>Func<R></code> - 无参，返回值类型为R的函数（无参时无后缀）</li>
+      <li><code>Func2<P1, P2, R></code> - 2个入参，返回值类型为R的函数</li>
+      <li><code>FuncE2<P1, P2, R></code> - 2个入参，返回值类型为R，有异常抛出声明的函数</li>
+      <li><code>FuncX2<P1, P2, R, X></code> - 2个入参，返回值类型为R，有异常类型为X抛出声明的函数</li>
+    </ul>
+  </td>
+</tr>
+<tr>
+  <td><code>throws Exception</code></td>
+  <td>ActionE</td>
+</tr>
+<tr>
+  <td><code>throws <b>X</b></code> (<code><b>X</b> extends Throwable</code>)</td>
+  <td>ActionX</td>
+</tr>
+<tr>
+  <td rowspan="3"><code><b>R</b> invoke(...)</code></td>
+  <td><code>/* none */</code></td>
+  <td>Func</td>
+</tr>
+<tr>
+  <td><code>throws Exception</code></td>
+  <td>FuncE</td>
+</tr>
+<tr>
+  <td><code>throws <b>X</b></code> (<code><b>X</b> extends Throwable</code>)</td>
+  <td>FuncX</td>
+</tr>
+</tbody>
+</table>
 
 ### `java.util.function`兼容
 

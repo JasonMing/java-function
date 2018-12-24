@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
  */
 @FunctionalInterface
 public interface FuncE<R>
-        extends FuncX<R, Exception>, ActionE, Callable<R>
+        extends FuncX<R, Exception>, Callable<R>
 {
     /**
      * 为lambda表达式提供简便的类型声明。
@@ -25,13 +25,26 @@ public interface FuncE<R>
      * <p>
      * {@code map(FuncE.of(() -> foo())); }
      *
-     * @param f 能适配FuncE的lambda表达式或任意实例
+     * @param f 能适配FuncE的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static <R> FuncE<R> of(final FuncE<R> f)
     {
         return f;
+    }
+
+    /**
+     * 忽略Func的返回值使其适配对应的Action。
+     *
+     * @return 参数个数相同的Action。
+     *
+     * @apiNote <code><b>R</b> invoke()</code> &#8658; <code><b>void</b> invoke()</code>
+     */
+    @Override
+    default ActionE asAction()
+    {
+        return this::invoke;
     }
 
     @Override

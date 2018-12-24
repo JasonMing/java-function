@@ -21,13 +21,46 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
      * <p>
      * {@code map(Action9.of((p1, p2, p3, p4, p5, p6, p7, p8, p9) -> foo())); }
      *
-     * @param f 能适配Action9的lambda表达式或任意实例
+     * @param f 能适配Action9的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static <P1, P2, P3, P4, P5, P6, P7, P8, P9> Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9> of(final Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9> f)
     {
         return f;
+    }
+
+    /**
+     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code null}作为返回值。
+     *
+     * @param <R> Function返回值的类型。
+     *
+     * @return 参数个数相同的Func。
+     *
+     * @apiNote <code><b>void</b> invoke(p1, p2, p3, p4, p5, p6, p7, p8, p9)</code> &#8658; <code><b>R</b> invoke(p1, p2, p3, p4, p5, p6, p7, p8, p9)</code>
+     */
+    default <R> Func9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R> toFunc()
+    {
+        return this.toFunc(null);
+    }
+
+    /**
+     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code returnValue}作为返回值。
+     *
+     * @param returnValue 作为Function的返回值。
+     * @param <R>         Function返回值的类型。
+     *
+     * @return 参数个数相同的Func。
+     *
+     * @apiNote <code><b>void</b> invoke(p1, p2, p3, p4, p5, p6, p7, p8, p9)</code> &#8658; <code><b>R</b> invoke(p1, p2, p3, p4, p5, p6, p7, p8, p9)</code>
+     */
+    default <R> Func9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R> toFunc(final R returnValue)
+    {
+        return (p1, p2, p3, p4, p5, p6, p7, p8, p9) ->
+        {
+            this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
+            return returnValue;
+        };
     }
 
     /**
@@ -37,9 +70,7 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
 
     // region: currying
 
-
     // region: apply from left
-
 
     /**
      * 绑定最左的1个参数到此Action上，并且返回带有剩余参数的Action。
@@ -49,7 +80,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
         return (p2, p3, p4, p5, p6, p7, p8, p9) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
 
-
     /**
      * 绑定最左的2个参数到此Action上，并且返回带有剩余参数的Action。
      */
@@ -57,7 +87,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
     {
         return (p3, p4, p5, p6, p7, p8, p9) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
-
 
     /**
      * 绑定最左的3个参数到此Action上，并且返回带有剩余参数的Action。
@@ -67,7 +96,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
         return (p4, p5, p6, p7, p8, p9) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
 
-
     /**
      * 绑定最左的4个参数到此Action上，并且返回带有剩余参数的Action。
      */
@@ -75,7 +103,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
     {
         return (p5, p6, p7, p8, p9) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
-
 
     /**
      * 绑定最左的5个参数到此Action上，并且返回带有剩余参数的Action。
@@ -85,7 +112,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
         return (p6, p7, p8, p9) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
 
-
     /**
      * 绑定最左的6个参数到此Action上，并且返回带有剩余参数的Action。
      */
@@ -93,7 +119,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
     {
         return (p7, p8, p9) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
-
 
     /**
      * 绑定最左的7个参数到此Action上，并且返回带有剩余参数的Action。
@@ -103,7 +128,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
         return (p8, p9) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
 
-
     /**
      * 绑定最左的8个参数到此Action上，并且返回带有剩余参数的Action。
      */
@@ -112,12 +136,9 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
         return (p9) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
 
-
     // endregion: apply from left
 
-
     // region: apply from right
-
 
     /**
      * 绑定最右的1个参数到此Action上，并且返回带有剩余参数的Action。
@@ -127,7 +148,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
         return (p1, p2, p3, p4, p5, p6, p7, p8) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
 
-
     /**
      * 绑定最右的2个参数到此Action上，并且返回带有剩余参数的Action。
      */
@@ -135,7 +155,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
     {
         return (p1, p2, p3, p4, p5, p6, p7) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
-
 
     /**
      * 绑定最右的3个参数到此Action上，并且返回带有剩余参数的Action。
@@ -145,7 +164,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
         return (p1, p2, p3, p4, p5, p6) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
 
-
     /**
      * 绑定最右的4个参数到此Action上，并且返回带有剩余参数的Action。
      */
@@ -153,7 +171,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
     {
         return (p1, p2, p3, p4, p5) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
-
 
     /**
      * 绑定最右的5个参数到此Action上，并且返回带有剩余参数的Action。
@@ -163,7 +180,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
         return (p1, p2, p3, p4) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
 
-
     /**
      * 绑定最右的6个参数到此Action上，并且返回带有剩余参数的Action。
      */
@@ -171,7 +187,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
     {
         return (p1, p2, p3) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
-
 
     /**
      * 绑定最右的7个参数到此Action上，并且返回带有剩余参数的Action。
@@ -181,7 +196,6 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
         return (p1, p2) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
 
-
     /**
      * 绑定最右的8个参数到此Action上，并且返回带有剩余参数的Action。
      */
@@ -190,28 +204,7 @@ public interface Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9>
         return (p1) -> this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
 
-
     // endregion: apply from right
 
-
     // endregion: currying
-
-    /**
-     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code ret}作为返回值。
-     *
-     * @param ret 作为Function的返回值
-     * @param <R> Function返回值的类型
-     *
-     * @return 参数个数相同的Func
-     *
-     * @apiNote <code><b>void</b> invoke(p1, p2, p3, p4, p5, p6, p7, p8, p9)</code> &#8658; <code><b>R</b> invoke(p1, p2, p3, p4, p5, p6, p7, p8, p9)</code>
-     */
-    default <R> Func9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R> toFunc(final R ret)
-    {
-        return (p1, p2, p3, p4, p5, p6, p7, p8, p9) ->
-        {
-            this.invokeV(p1, p2, p3, p4, p5, p6, p7, p8, p9);
-            return ret;
-        };
-    }
 }

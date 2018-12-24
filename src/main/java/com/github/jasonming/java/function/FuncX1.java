@@ -9,7 +9,7 @@ package com.github.jasonming.java.function;
  */
 @FunctionalInterface
 public interface FuncX1<P1, R, X extends Throwable>
-        extends Func1<P1, R>, ActionX1<P1, X>
+        extends Func1<P1, R>
 {
     /**
      * 为lambda表达式提供简便的类型声明。
@@ -22,13 +22,26 @@ public interface FuncX1<P1, R, X extends Throwable>
      * <p>
      * {@code map(FuncX1.of((p1) -> foo())); }
      *
-     * @param f 能适配FuncX1的lambda表达式或任意实例
+     * @param f 能适配FuncX1的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static <P1, R, X extends Throwable> FuncX1<P1, R, X> of(final FuncX1<P1, R, X> f)
     {
         return f;
+    }
+
+    /**
+     * 忽略Func的返回值使其适配对应的Action。
+     *
+     * @return 参数个数相同的Action。
+     *
+     * @apiNote <code><b>R</b> invoke(p1)</code> &#8658; <code><b>void</b> invoke(p1)</code>
+     */
+    @Override
+    default ActionX1<P1, X> asAction()
+    {
+        return this::invoke;
     }
 
     @Override
@@ -42,16 +55,4 @@ public interface FuncX1<P1, R, X extends Throwable>
      * 执行此Func，并返回类型为{@link R}的返回值，期间可能会抛出类型为{@link X}的异常。
      */
     R invokeX(P1 p1) throws X;
-
-    @Override
-    default void invokeV(final P1 p1)
-    {
-        Func1.super.invokeV(p1);
-    }
-
-    @Override
-    default void invokeVX(final P1 p1) throws X
-    {
-        this.invokeX(p1);
-    }
 }

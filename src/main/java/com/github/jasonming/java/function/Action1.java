@@ -25,9 +25,9 @@ public interface Action1<P1>
      * <p>
      * {@code map(Action1.of((p1) -> foo())); }
      *
-     * @param f 能适配Action1的lambda表达式或任意实例
+     * @param f 能适配Action1的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static <P1> Action1<P1> of(final Action1<P1> f)
     {
@@ -35,28 +35,42 @@ public interface Action1<P1>
     }
 
     /**
-     * 执行此Action，并不返回任何值。
-     */
-    void invokeV(P1 p1);
-
-    /**
-     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code ret}作为返回值。
+     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code null}作为返回值。
      *
-     * @param ret 作为Function的返回值
-     * @param <R> Function返回值的类型
+     * @param <R> Function返回值的类型。
      *
-     * @return 参数个数相同的Func
+     * @return 参数个数相同的Func。
      *
      * @apiNote <code><b>void</b> invoke(p1)</code> &#8658; <code><b>R</b> invoke(p1)</code>
      */
-    default <R> Func1<P1, R> toFunc(final R ret)
+    default <R> Func1<P1, R> toFunc()
+    {
+        return this.toFunc(null);
+    }
+
+    /**
+     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code returnValue}作为返回值。
+     *
+     * @param returnValue 作为Function的返回值。
+     * @param <R>         Function返回值的类型。
+     *
+     * @return 参数个数相同的Func。
+     *
+     * @apiNote <code><b>void</b> invoke(p1)</code> &#8658; <code><b>R</b> invoke(p1)</code>
+     */
+    default <R> Func1<P1, R> toFunc(final R returnValue)
     {
         return (p1) ->
         {
             this.invokeV(p1);
-            return ret;
+            return returnValue;
         };
     }
+
+    /**
+     * 执行此Action，并不返回任何值。
+     */
+    void invokeV(P1 p1);
 
     @Override
     default void accept(final P1 p1)

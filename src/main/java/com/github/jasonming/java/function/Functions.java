@@ -58,288 +58,713 @@ public final class Functions
         f.invokeV();
     }
 
-    // region: of
-
     /**
-     * {@link Action#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link ActionX#of}。
+     * {@link ActionX#of}的快捷方式。
      *
-     * @param f 能适配Action的lambda表达式或任意实例
+     * @param action 没有参数没有返回值的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code action}自身。
      *
-     * @see Action#of
+     * @see ActionX#of
      */
-    public static Action of(final Action f)
+    public static <X extends Throwable> ActionX<X> action(final ActionX<X> action)
     {
-        return f;
+        return action;
     }
 
     /**
-     * {@link Action1#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link ActionX1#of}。
+     * {@link ActionX1#of}的快捷方式。
      *
-     * @param f 能适配Action1的lambda表达式或任意实例
+     * @param action 1个参数没有返回值的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code action}自身。
      *
-     * @see Action1#of
+     * @see ActionX1#of
      */
-    public static <P1> Action1<P1> of(final Action1<P1> f)
+    public static <P1, X extends Throwable> ActionX1<P1, X> action(final ActionX1<P1, X> action)
     {
-        return f;
+        return action;
     }
 
     /**
-     * {@link Action2#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link ActionX2#of}。
+     * {@link ActionX2#of}的快捷方式。
      *
-     * @param f 能适配Action2的lambda表达式或任意实例
+     * @param action 2个参数没有返回值的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code action}自身。
      *
-     * @see Action2#of
+     * @see ActionX2#of
      */
-    public static <P1, P2> Action2<P1, P2> of(final Action2<P1, P2> f)
+    public static <P1, P2, X extends Throwable> ActionX2<P1, P2, X> action(final ActionX2<P1, P2, X> action)
     {
-        return f;
+        return action;
     }
 
     /**
-     * {@link Action3#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link ActionX3#of}。
+     * {@link ActionX3#of}的快捷方式。
      *
-     * @param f 能适配Action3的lambda表达式或任意实例
+     * @param action 3个参数没有返回值的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code action}自身。
      *
-     * @see Action3#of
+     * @see ActionX3#of
      */
-    public static <P1, P2, P3> Action3<P1, P2, P3> of(final Action3<P1, P2, P3> f)
+    public static <P1, P2, P3, X extends Throwable> ActionX3<P1, P2, P3, X> action(final ActionX3<P1, P2, P3, X> action)
     {
-        return f;
+        return action;
     }
 
     /**
-     * {@link Action4#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link ActionX4#of}。
+     * {@link ActionX4#of}的快捷方式。
      *
-     * @param f 能适配Action4的lambda表达式或任意实例
+     * @param action 4个参数没有返回值的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code action}自身。
      *
-     * @see Action4#of
+     * @see ActionX4#of
      */
-    public static <P1, P2, P3, P4> Action4<P1, P2, P3, P4> of(final Action4<P1, P2, P3, P4> f)
+    public static <P1, P2, P3, P4, X extends Throwable> ActionX4<P1, P2, P3, P4, X> action(final ActionX4<P1, P2, P3, P4, X> action)
     {
-        return f;
+        return action;
     }
 
     /**
-     * {@link Action5#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link ActionX5#of}。
+     * {@link ActionX5#of}的快捷方式。
      *
-     * @param f 能适配Action5的lambda表达式或任意实例
+     * @param action 5个参数没有返回值的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code action}自身。
      *
-     * @see Action5#of
+     * @see ActionX5#of
      */
-    public static <P1, P2, P3, P4, P5> Action5<P1, P2, P3, P4, P5> of(final Action5<P1, P2, P3, P4, P5> f)
+    public static <P1, P2, P3, P4, P5, X extends Throwable> ActionX5<P1, P2, P3, P4, P5, X> action(final ActionX5<P1, P2, P3, P4, P5, X> action)
     {
-        return f;
+        return action;
     }
 
     /**
-     * {@link Action6#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link ActionX6#of}。
+     * {@link ActionX6#of}的快捷方式。
      *
-     * @param f 能适配Action6的lambda表达式或任意实例
+     * @param action 6个参数没有返回值的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code action}自身。
      *
-     * @see Action6#of
+     * @see ActionX6#of
      */
-    public static <P1, P2, P3, P4, P5, P6> Action6<P1, P2, P3, P4, P5, P6> of(final Action6<P1, P2, P3, P4, P5, P6> f)
+    public static <P1, P2, P3, P4, P5, P6, X extends Throwable> ActionX6<P1, P2, P3, P4, P5, P6, X> action(final ActionX6<P1, P2, P3, P4, P5, P6, X> action)
     {
-        return f;
+        return action;
     }
 
     /**
-     * {@link Action7#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link ActionX7#of}。
+     * {@link ActionX7#of}的快捷方式。
      *
-     * @param f 能适配Action7的lambda表达式或任意实例
+     * @param action 7个参数没有返回值的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code action}自身。
      *
-     * @see Action7#of
+     * @see ActionX7#of
      */
-    public static <P1, P2, P3, P4, P5, P6, P7> Action7<P1, P2, P3, P4, P5, P6, P7> of(final Action7<P1, P2, P3, P4, P5, P6, P7> f)
+    public static <P1, P2, P3, P4, P5, P6, P7, X extends Throwable> ActionX7<P1, P2, P3, P4, P5, P6, P7, X> action(final ActionX7<P1, P2, P3, P4, P5, P6, P7, X> action)
     {
-        return f;
+        return action;
     }
 
     /**
-     * {@link Action8#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link ActionX8#of}。
+     * {@link ActionX8#of}的快捷方式。
      *
-     * @param f 能适配Action8的lambda表达式或任意实例
+     * @param action 8个参数没有返回值的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code action}自身。
      *
-     * @see Action8#of
+     * @see ActionX8#of
      */
-    public static <P1, P2, P3, P4, P5, P6, P7, P8> Action8<P1, P2, P3, P4, P5, P6, P7, P8> of(final Action8<P1, P2, P3, P4, P5, P6, P7, P8> f)
+    public static <P1, P2, P3, P4, P5, P6, P7, P8, X extends Throwable> ActionX8<P1, P2, P3, P4, P5, P6, P7, P8, X> action(final ActionX8<P1, P2, P3, P4, P5, P6, P7, P8, X> action)
     {
-        return f;
+        return action;
     }
 
     /**
-     * {@link Action9#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link ActionX9#of}。
+     * {@link ActionX9#of}的快捷方式。
      *
-     * @param f 能适配Action9的lambda表达式或任意实例
+     * @param action 9个参数没有返回值的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code action}自身。
      *
-     * @see Action9#of
+     * @see ActionX9#of
      */
-    public static <P1, P2, P3, P4, P5, P6, P7, P8, P9> Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9> of(final Action9<P1, P2, P3, P4, P5, P6, P7, P8, P9> f)
+    public static <P1, P2, P3, P4, P5, P6, P7, P8, P9, X extends Throwable> ActionX9<P1, P2, P3, P4, P5, P6, P7, P8, P9, X> action(final ActionX9<P1, P2, P3, P4, P5, P6, P7, P8, P9, X> action)
     {
-        return f;
+        return action;
     }
 
     /**
-     * {@link Func#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link FuncX#of}。
+     * {@link FuncX#of}的快捷方式。
      *
-     * @param f 能适配Func的lambda表达式或任意实例
+     * @param func 没有参数返回{@link R}的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code func}自身。
      *
-     * @see Func#of
+     * @see FuncX#of
      */
-    public static <R> Func<R> of(final Func<R> f)
+    public static <R, X extends Throwable> FuncX<R, X> func(final FuncX<R, X> func)
     {
-        return f;
+        return func;
     }
 
     /**
-     * {@link Func1#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link FuncX1#of}。
+     * {@link FuncX1#of}的快捷方式。
      *
-     * @param f 能适配Func1的lambda表达式或任意实例
+     * @param func 1个参数返回{@link R}的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code func}自身。
      *
-     * @see Func1#of
+     * @see FuncX1#of
      */
-    public static <P1, R> Func1<P1, R> of(final Func1<P1, R> f)
+    public static <P1, R, X extends Throwable> FuncX1<P1, R, X> func(final FuncX1<P1, R, X> func)
     {
-        return f;
+        return func;
     }
 
     /**
-     * {@link Func2#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link FuncX2#of}。
+     * {@link FuncX2#of}的快捷方式。
      *
-     * @param f 能适配Func2的lambda表达式或任意实例
+     * @param func 2个参数返回{@link R}的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code func}自身。
      *
-     * @see Func2#of
+     * @see FuncX2#of
      */
-    public static <P1, P2, R> Func2<P1, P2, R> of(final Func2<P1, P2, R> f)
+    public static <P1, P2, R, X extends Throwable> FuncX2<P1, P2, R, X> func(final FuncX2<P1, P2, R, X> func)
     {
-        return f;
+        return func;
     }
 
     /**
-     * {@link Func3#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link FuncX3#of}。
+     * {@link FuncX3#of}的快捷方式。
      *
-     * @param f 能适配Func3的lambda表达式或任意实例
+     * @param func 3个参数返回{@link R}的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code func}自身。
      *
-     * @see Func3#of
+     * @see FuncX3#of
      */
-    public static <P1, P2, P3, R> Func3<P1, P2, P3, R> of(final Func3<P1, P2, P3, R> f)
+    public static <P1, P2, P3, R, X extends Throwable> FuncX3<P1, P2, P3, R, X> func(final FuncX3<P1, P2, P3, R, X> func)
     {
-        return f;
+        return func;
     }
 
     /**
-     * {@link Func4#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link FuncX4#of}。
+     * {@link FuncX4#of}的快捷方式。
      *
-     * @param f 能适配Func4的lambda表达式或任意实例
+     * @param func 4个参数返回{@link R}的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code func}自身。
      *
-     * @see Func4#of
+     * @see FuncX4#of
      */
-    public static <P1, P2, P3, P4, R> Func4<P1, P2, P3, P4, R> of(final Func4<P1, P2, P3, P4, R> f)
+    public static <P1, P2, P3, P4, R, X extends Throwable> FuncX4<P1, P2, P3, P4, R, X> func(final FuncX4<P1, P2, P3, P4, R, X> func)
     {
-        return f;
+        return func;
     }
 
     /**
-     * {@link Func5#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link FuncX5#of}。
+     * {@link FuncX5#of}的快捷方式。
      *
-     * @param f 能适配Func5的lambda表达式或任意实例
+     * @param func 5个参数返回{@link R}的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code func}自身。
      *
-     * @see Func5#of
+     * @see FuncX5#of
      */
-    public static <P1, P2, P3, P4, P5, R> Func5<P1, P2, P3, P4, P5, R> of(final Func5<P1, P2, P3, P4, P5, R> f)
+    public static <P1, P2, P3, P4, P5, R, X extends Throwable> FuncX5<P1, P2, P3, P4, P5, R, X> func(final FuncX5<P1, P2, P3, P4, P5, R, X> func)
     {
-        return f;
+        return func;
     }
 
     /**
-     * {@link Func6#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link FuncX6#of}。
+     * {@link FuncX6#of}的快捷方式。
      *
-     * @param f 能适配Func6的lambda表达式或任意实例
+     * @param func 6个参数返回{@link R}的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code func}自身。
      *
-     * @see Func6#of
+     * @see FuncX6#of
      */
-    public static <P1, P2, P3, P4, P5, P6, R> Func6<P1, P2, P3, P4, P5, P6, R> of(final Func6<P1, P2, P3, P4, P5, P6, R> f)
+    public static <P1, P2, P3, P4, P5, P6, R, X extends Throwable> FuncX6<P1, P2, P3, P4, P5, P6, R, X> func(final FuncX6<P1, P2, P3, P4, P5, P6, R, X> func)
     {
-        return f;
+        return func;
     }
 
     /**
-     * {@link Func7#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link FuncX7#of}。
+     * {@link FuncX7#of}的快捷方式。
      *
-     * @param f 能适配Func7的lambda表达式或任意实例
+     * @param func 7个参数返回{@link R}的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code func}自身。
      *
-     * @see Func7#of
+     * @see FuncX7#of
      */
-    public static <P1, P2, P3, P4, P5, P6, P7, R> Func7<P1, P2, P3, P4, P5, P6, P7, R> of(final Func7<P1, P2, P3, P4, P5, P6, P7, R> f)
+    public static <P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable> FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X> func(final FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X> func)
     {
-        return f;
+        return func;
     }
 
     /**
-     * {@link Func8#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link FuncX8#of}。
+     * {@link FuncX8#of}的快捷方式。
      *
-     * @param f 能适配Func8的lambda表达式或任意实例
+     * @param func 8个参数返回{@link R}的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code func}自身。
      *
-     * @see Func8#of
+     * @see FuncX8#of
      */
-    public static <P1, P2, P3, P4, P5, P6, P7, P8, R> Func8<P1, P2, P3, P4, P5, P6, P7, P8, R> of(final Func8<P1, P2, P3, P4, P5, P6, P7, P8, R> f)
+    public static <P1, P2, P3, P4, P5, P6, P7, P8, R, X extends Throwable> FuncX8<P1, P2, P3, P4, P5, P6, P7, P8, R, X> func(final FuncX8<P1, P2, P3, P4, P5, P6, P7, P8, R, X> func)
     {
-        return f;
+        return func;
     }
 
     /**
-     * {@link Func9#of}的快捷方式，为了语义明确使用带有异常声明的版本请直接使用{@link FuncX9#of}。
+     * {@link FuncX9#of}的快捷方式。
      *
-     * @param f 能适配Func9的lambda表达式或任意实例
+     * @param func 9个参数返回{@link R}的lambda表达式。
      *
-     * @return {@code f}自身
+     * @return {@code func}自身。
      *
-     * @see Func9#of
+     * @see FuncX9#of
      */
-    public static <P1, P2, P3, P4, P5, P6, P7, P8, P9, R> Func9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R> of(final Func9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R> f)
+    public static <P1, P2, P3, P4, P5, P6, P7, P8, P9, R, X extends Throwable> FuncX9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R, X> func(final FuncX9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R, X> func)
     {
-        return f;
+        return func;
     }
 
-    // endregion: of
+    /**
+     * {@link FuncX#asAction}的快捷方式，将{@code Func}实例转换为没有返回值的{@code Action}实例。
+     *
+     * @param func 没有参数返回{@link R}的lambda表达式，或{@link FuncX}实例。
+     *
+     * @return {@code func}的{@code void}返回形式。
+     *
+     * @see FuncX#asAction
+     */
+    public static <R, X extends Throwable> ActionX<X> asAction(final FuncX<R, X> func)
+    {
+        return func.asAction();
+    }
 
+    /**
+     * {@link FuncX1#asAction}的快捷方式，将{@code Func}实例转换为没有返回值的{@code Action}实例。
+     *
+     * @param func 1个参数返回{@link R}的lambda表达式，或{@link FuncX1}实例。
+     *
+     * @return {@code func}的{@code void}返回形式。
+     *
+     * @see FuncX1#asAction
+     */
+    public static <P1, R, X extends Throwable> ActionX1<P1, X> asAction(final FuncX1<P1, R, X> func)
+    {
+        return func.asAction();
+    }
+
+    /**
+     * {@link FuncX2#asAction}的快捷方式，将{@code Func}实例转换为没有返回值的{@code Action}实例。
+     *
+     * @param func 2个参数返回{@link R}的lambda表达式，或{@link FuncX2}实例。
+     *
+     * @return {@code func}的{@code void}返回形式。
+     *
+     * @see FuncX2#asAction
+     */
+    public static <P1, P2, R, X extends Throwable> ActionX2<P1, P2, X> asAction(final FuncX2<P1, P2, R, X> func)
+    {
+        return func.asAction();
+    }
+
+    /**
+     * {@link FuncX3#asAction}的快捷方式，将{@code Func}实例转换为没有返回值的{@code Action}实例。
+     *
+     * @param func 3个参数返回{@link R}的lambda表达式，或{@link FuncX3}实例。
+     *
+     * @return {@code func}的{@code void}返回形式。
+     *
+     * @see FuncX3#asAction
+     */
+    public static <P1, P2, P3, R, X extends Throwable> ActionX3<P1, P2, P3, X> asAction(final FuncX3<P1, P2, P3, R, X> func)
+    {
+        return func.asAction();
+    }
+
+    /**
+     * {@link FuncX4#asAction}的快捷方式，将{@code Func}实例转换为没有返回值的{@code Action}实例。
+     *
+     * @param func 4个参数返回{@link R}的lambda表达式，或{@link FuncX4}实例。
+     *
+     * @return {@code func}的{@code void}返回形式。
+     *
+     * @see FuncX4#asAction
+     */
+    public static <P1, P2, P3, P4, R, X extends Throwable> ActionX4<P1, P2, P3, P4, X> asAction(final FuncX4<P1, P2, P3, P4, R, X> func)
+    {
+        return func.asAction();
+    }
+
+    /**
+     * {@link FuncX5#asAction}的快捷方式，将{@code Func}实例转换为没有返回值的{@code Action}实例。
+     *
+     * @param func 5个参数返回{@link R}的lambda表达式，或{@link FuncX5}实例。
+     *
+     * @return {@code func}的{@code void}返回形式。
+     *
+     * @see FuncX5#asAction
+     */
+    public static <P1, P2, P3, P4, P5, R, X extends Throwable> ActionX5<P1, P2, P3, P4, P5, X> asAction(final FuncX5<P1, P2, P3, P4, P5, R, X> func)
+    {
+        return func.asAction();
+    }
+
+    /**
+     * {@link FuncX6#asAction}的快捷方式，将{@code Func}实例转换为没有返回值的{@code Action}实例。
+     *
+     * @param func 6个参数返回{@link R}的lambda表达式，或{@link FuncX6}实例。
+     *
+     * @return {@code func}的{@code void}返回形式。
+     *
+     * @see FuncX6#asAction
+     */
+    public static <P1, P2, P3, P4, P5, P6, R, X extends Throwable> ActionX6<P1, P2, P3, P4, P5, P6, X> asAction(final FuncX6<P1, P2, P3, P4, P5, P6, R, X> func)
+    {
+        return func.asAction();
+    }
+
+    /**
+     * {@link FuncX7#asAction}的快捷方式，将{@code Func}实例转换为没有返回值的{@code Action}实例。
+     *
+     * @param func 7个参数返回{@link R}的lambda表达式，或{@link FuncX7}实例。
+     *
+     * @return {@code func}的{@code void}返回形式。
+     *
+     * @see FuncX7#asAction
+     */
+    public static <P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable> ActionX7<P1, P2, P3, P4, P5, P6, P7, X> asAction(final FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X> func)
+    {
+        return func.asAction();
+    }
+
+    /**
+     * {@link FuncX8#asAction}的快捷方式，将{@code Func}实例转换为没有返回值的{@code Action}实例。
+     *
+     * @param func 8个参数返回{@link R}的lambda表达式，或{@link FuncX8}实例。
+     *
+     * @return {@code func}的{@code void}返回形式。
+     *
+     * @see FuncX8#asAction
+     */
+    public static <P1, P2, P3, P4, P5, P6, P7, P8, R, X extends Throwable> ActionX8<P1, P2, P3, P4, P5, P6, P7, P8, X> asAction(final FuncX8<P1, P2, P3, P4, P5, P6, P7, P8, R, X> func)
+    {
+        return func.asAction();
+    }
+
+    /**
+     * {@link FuncX9#asAction}的快捷方式，将{@code Func}实例转换为没有返回值的{@code Action}实例。
+     *
+     * @param func 9个参数返回{@link R}的lambda表达式，或{@link FuncX9}实例。
+     *
+     * @return {@code func}的{@code void}返回形式。
+     *
+     * @see FuncX9#asAction
+     */
+    public static <P1, P2, P3, P4, P5, P6, P7, P8, P9, R, X extends Throwable> ActionX9<P1, P2, P3, P4, P5, P6, P7, P8, P9, X> asAction(final FuncX9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R, X> func)
+    {
+        return func.asAction();
+    }
+
+    /**
+     * {@link ActionX#toFunc()}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code null}为返回值的{@code Func}实例。
+     *
+     * @param action 没有参数没有返回值的lambda表达式，或{@link ActionX}实例。
+     *
+     * @return 返回值为{@code null}的{@code action}。
+     *
+     * @see ActionX#toFunc()
+     */
+    public static <R, X extends Throwable> FuncX<R, X> toFunc(final ActionX<X> action)
+    {
+        return action.toFunc();
+    }
+
+    /**
+     * {@link ActionX1#toFunc()}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code null}为返回值的{@code Func}实例。
+     *
+     * @param action 1个参数没有返回值的lambda表达式，或{@link ActionX1}实例。
+     *
+     * @return 返回值为{@code null}的{@code action}。
+     *
+     * @see ActionX1#toFunc()
+     */
+    public static <P1, R, X extends Throwable> FuncX1<P1, R, X> toFunc(final ActionX1<P1, X> action)
+    {
+        return action.toFunc();
+    }
+
+    /**
+     * {@link ActionX2#toFunc()}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code null}为返回值的{@code Func}实例。
+     *
+     * @param action 2个参数没有返回值的lambda表达式，或{@link ActionX2}实例。
+     *
+     * @return 返回值为{@code null}的{@code action}。
+     *
+     * @see ActionX2#toFunc()
+     */
+    public static <P1, P2, R, X extends Throwable> FuncX2<P1, P2, R, X> toFunc(final ActionX2<P1, P2, X> action)
+    {
+        return action.toFunc();
+    }
+
+    /**
+     * {@link ActionX3#toFunc()}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code null}为返回值的{@code Func}实例。
+     *
+     * @param action 3个参数没有返回值的lambda表达式，或{@link ActionX3}实例。
+     *
+     * @return 返回值为{@code null}的{@code action}。
+     *
+     * @see ActionX3#toFunc()
+     */
+    public static <P1, P2, P3, R, X extends Throwable> FuncX3<P1, P2, P3, R, X> toFunc(final ActionX3<P1, P2, P3, X> action)
+    {
+        return action.toFunc();
+    }
+
+    /**
+     * {@link ActionX4#toFunc()}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code null}为返回值的{@code Func}实例。
+     *
+     * @param action 4个参数没有返回值的lambda表达式，或{@link ActionX4}实例。
+     *
+     * @return 返回值为{@code null}的{@code action}。
+     *
+     * @see ActionX4#toFunc()
+     */
+    public static <P1, P2, P3, P4, R, X extends Throwable> FuncX4<P1, P2, P3, P4, R, X> toFunc(final ActionX4<P1, P2, P3, P4, X> action)
+    {
+        return action.toFunc();
+    }
+
+    /**
+     * {@link ActionX5#toFunc()}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code null}为返回值的{@code Func}实例。
+     *
+     * @param action 5个参数没有返回值的lambda表达式，或{@link ActionX5}实例。
+     *
+     * @return 返回值为{@code null}的{@code action}。
+     *
+     * @see ActionX5#toFunc()
+     */
+    public static <P1, P2, P3, P4, P5, R, X extends Throwable> FuncX5<P1, P2, P3, P4, P5, R, X> toFunc(final ActionX5<P1, P2, P3, P4, P5, X> action)
+    {
+        return action.toFunc();
+    }
+
+    /**
+     * {@link ActionX6#toFunc()}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code null}为返回值的{@code Func}实例。
+     *
+     * @param action 6个参数没有返回值的lambda表达式，或{@link ActionX6}实例。
+     *
+     * @return 返回值为{@code null}的{@code action}。
+     *
+     * @see ActionX6#toFunc()
+     */
+    public static <P1, P2, P3, P4, P5, P6, R, X extends Throwable> FuncX6<P1, P2, P3, P4, P5, P6, R, X> toFunc(final ActionX6<P1, P2, P3, P4, P5, P6, X> action)
+    {
+        return action.toFunc();
+    }
+
+    /**
+     * {@link ActionX7#toFunc()}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code null}为返回值的{@code Func}实例。
+     *
+     * @param action 7个参数没有返回值的lambda表达式，或{@link ActionX7}实例。
+     *
+     * @return 返回值为{@code null}的{@code action}。
+     *
+     * @see ActionX7#toFunc()
+     */
+    public static <P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable> FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X> toFunc(final ActionX7<P1, P2, P3, P4, P5, P6, P7, X> action)
+    {
+        return action.toFunc();
+    }
+
+    /**
+     * {@link ActionX8#toFunc()}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code null}为返回值的{@code Func}实例。
+     *
+     * @param action 8个参数没有返回值的lambda表达式，或{@link ActionX8}实例。
+     *
+     * @return 返回值为{@code null}的{@code action}。
+     *
+     * @see ActionX8#toFunc()
+     */
+    public static <P1, P2, P3, P4, P5, P6, P7, P8, R, X extends Throwable> FuncX8<P1, P2, P3, P4, P5, P6, P7, P8, R, X> toFunc(final ActionX8<P1, P2, P3, P4, P5, P6, P7, P8, X> action)
+    {
+        return action.toFunc();
+    }
+
+    /**
+     * {@link ActionX9#toFunc()}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code null}为返回值的{@code Func}实例。
+     *
+     * @param action 9个参数没有返回值的lambda表达式，或{@link ActionX9}实例。
+     *
+     * @return 返回值为{@code null}的{@code action}。
+     *
+     * @see ActionX9#toFunc()
+     */
+    public static <P1, P2, P3, P4, P5, P6, P7, P8, P9, R, X extends Throwable> FuncX9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R, X> toFunc(final ActionX9<P1, P2, P3, P4, P5, P6, P7, P8, P9, X> action)
+    {
+        return action.toFunc();
+    }
+
+    /**
+     * {@link ActionX#toFunc(R)}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code returnValue}为返回值的{@code Func}实例。
+     *
+     * @param action      没有参数没有返回值的lambda表达式，或{@link ActionX}实例。
+     * @param returnValue 作为{@link ActionX}的返回值。
+     *
+     * @return 返回值为{@code returnValue}的{@code action}。
+     *
+     * @see ActionX#toFunc(R)
+     */
+    public static <R, X extends Throwable> FuncX<R, X> toFunc(final ActionX<X> action, final R returnValue)
+    {
+        return action.toFunc(returnValue);
+    }
+
+    /**
+     * {@link ActionX1#toFunc(R)}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code returnValue}为返回值的{@code Func}实例。
+     *
+     * @param action      1个参数没有返回值的lambda表达式，或{@link ActionX1}实例。
+     * @param returnValue 作为{@link ActionX1}的返回值。
+     *
+     * @return 返回值为{@code returnValue}的{@code action}。
+     *
+     * @see ActionX1#toFunc(R)
+     */
+    public static <P1, R, X extends Throwable> FuncX1<P1, R, X> toFunc(final ActionX1<P1, X> action, final R returnValue)
+    {
+        return action.toFunc(returnValue);
+    }
+
+    /**
+     * {@link ActionX2#toFunc(R)}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code returnValue}为返回值的{@code Func}实例。
+     *
+     * @param action      2个参数没有返回值的lambda表达式，或{@link ActionX2}实例。
+     * @param returnValue 作为{@link ActionX2}的返回值。
+     *
+     * @return 返回值为{@code returnValue}的{@code action}。
+     *
+     * @see ActionX2#toFunc(R)
+     */
+    public static <P1, P2, R, X extends Throwable> FuncX2<P1, P2, R, X> toFunc(final ActionX2<P1, P2, X> action, final R returnValue)
+    {
+        return action.toFunc(returnValue);
+    }
+
+    /**
+     * {@link ActionX3#toFunc(R)}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code returnValue}为返回值的{@code Func}实例。
+     *
+     * @param action      3个参数没有返回值的lambda表达式，或{@link ActionX3}实例。
+     * @param returnValue 作为{@link ActionX3}的返回值。
+     *
+     * @return 返回值为{@code returnValue}的{@code action}。
+     *
+     * @see ActionX3#toFunc(R)
+     */
+    public static <P1, P2, P3, R, X extends Throwable> FuncX3<P1, P2, P3, R, X> toFunc(final ActionX3<P1, P2, P3, X> action, final R returnValue)
+    {
+        return action.toFunc(returnValue);
+    }
+
+    /**
+     * {@link ActionX4#toFunc(R)}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code returnValue}为返回值的{@code Func}实例。
+     *
+     * @param action      4个参数没有返回值的lambda表达式，或{@link ActionX4}实例。
+     * @param returnValue 作为{@link ActionX4}的返回值。
+     *
+     * @return 返回值为{@code returnValue}的{@code action}。
+     *
+     * @see ActionX4#toFunc(R)
+     */
+    public static <P1, P2, P3, P4, R, X extends Throwable> FuncX4<P1, P2, P3, P4, R, X> toFunc(final ActionX4<P1, P2, P3, P4, X> action, final R returnValue)
+    {
+        return action.toFunc(returnValue);
+    }
+
+    /**
+     * {@link ActionX5#toFunc(R)}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code returnValue}为返回值的{@code Func}实例。
+     *
+     * @param action      5个参数没有返回值的lambda表达式，或{@link ActionX5}实例。
+     * @param returnValue 作为{@link ActionX5}的返回值。
+     *
+     * @return 返回值为{@code returnValue}的{@code action}。
+     *
+     * @see ActionX5#toFunc(R)
+     */
+    public static <P1, P2, P3, P4, P5, R, X extends Throwable> FuncX5<P1, P2, P3, P4, P5, R, X> toFunc(final ActionX5<P1, P2, P3, P4, P5, X> action, final R returnValue)
+    {
+        return action.toFunc(returnValue);
+    }
+
+    /**
+     * {@link ActionX6#toFunc(R)}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code returnValue}为返回值的{@code Func}实例。
+     *
+     * @param action      6个参数没有返回值的lambda表达式，或{@link ActionX6}实例。
+     * @param returnValue 作为{@link ActionX6}的返回值。
+     *
+     * @return 返回值为{@code returnValue}的{@code action}。
+     *
+     * @see ActionX6#toFunc(R)
+     */
+    public static <P1, P2, P3, P4, P5, P6, R, X extends Throwable> FuncX6<P1, P2, P3, P4, P5, P6, R, X> toFunc(final ActionX6<P1, P2, P3, P4, P5, P6, X> action, final R returnValue)
+    {
+        return action.toFunc(returnValue);
+    }
+
+    /**
+     * {@link ActionX7#toFunc(R)}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code returnValue}为返回值的{@code Func}实例。
+     *
+     * @param action      7个参数没有返回值的lambda表达式，或{@link ActionX7}实例。
+     * @param returnValue 作为{@link ActionX7}的返回值。
+     *
+     * @return 返回值为{@code returnValue}的{@code action}。
+     *
+     * @see ActionX7#toFunc(R)
+     */
+    public static <P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable> FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X> toFunc(final ActionX7<P1, P2, P3, P4, P5, P6, P7, X> action, final R returnValue)
+    {
+        return action.toFunc(returnValue);
+    }
+
+    /**
+     * {@link ActionX8#toFunc(R)}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code returnValue}为返回值的{@code Func}实例。
+     *
+     * @param action      8个参数没有返回值的lambda表达式，或{@link ActionX8}实例。
+     * @param returnValue 作为{@link ActionX8}的返回值。
+     *
+     * @return 返回值为{@code returnValue}的{@code action}。
+     *
+     * @see ActionX8#toFunc(R)
+     */
+    public static <P1, P2, P3, P4, P5, P6, P7, P8, R, X extends Throwable> FuncX8<P1, P2, P3, P4, P5, P6, P7, P8, R, X> toFunc(final ActionX8<P1, P2, P3, P4, P5, P6, P7, P8, X> action, final R returnValue)
+    {
+        return action.toFunc(returnValue);
+    }
+
+    /**
+     * {@link ActionX9#toFunc(R)}的快捷方式，将没有返回值的{@code Action}实例转换为以{@code returnValue}为返回值的{@code Func}实例。
+     *
+     * @param action      9个参数没有返回值的lambda表达式，或{@link ActionX9}实例。
+     * @param returnValue 作为{@link ActionX9}的返回值。
+     *
+     * @return 返回值为{@code returnValue}的{@code action}。
+     *
+     * @see ActionX9#toFunc(R)
+     */
+    public static <P1, P2, P3, P4, P5, P6, P7, P8, P9, R, X extends Throwable> FuncX9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R, X> toFunc(final ActionX9<P1, P2, P3, P4, P5, P6, P7, P8, P9, X> action, final R returnValue)
+    {
+        return action.toFunc(returnValue);
+    }
 }

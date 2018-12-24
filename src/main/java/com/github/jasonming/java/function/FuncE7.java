@@ -9,7 +9,7 @@ package com.github.jasonming.java.function;
  */
 @FunctionalInterface
 public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
-        extends FuncX7<P1, P2, P3, P4, P5, P6, P7, R, Exception>, ActionE7<P1, P2, P3, P4, P5, P6, P7>
+        extends FuncX7<P1, P2, P3, P4, P5, P6, P7, R, Exception>
 {
     /**
      * 为lambda表达式提供简便的类型声明。
@@ -22,19 +22,30 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
      * <p>
      * {@code map(FuncE7.of((p1, p2, p3, p4, p5, p6, p7) -> foo())); }
      *
-     * @param f 能适配FuncE7的lambda表达式或任意实例
+     * @param f 能适配FuncE7的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static <P1, P2, P3, P4, P5, P6, P7, R> FuncE7<P1, P2, P3, P4, P5, P6, P7, R> of(final FuncE7<P1, P2, P3, P4, P5, P6, P7, R> f)
     {
         return f;
     }
 
+    /**
+     * 忽略Func的返回值使其适配对应的Action。
+     *
+     * @return 参数个数相同的Action。
+     *
+     * @apiNote <code><b>R</b> invoke(p1, p2, p3, p4, p5, p6, p7)</code> &#8658; <code><b>void</b> invoke(p1, p2, p3, p4, p5, p6, p7)</code>
+     */
+    @Override
+    default ActionE7<P1, P2, P3, P4, P5, P6, P7> asAction()
+    {
+        return this::invoke;
+    }
+
     // region: currying
-
     // region: apply from left
-
     /**
      * 绑定最左的1个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -43,7 +54,6 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p2, p3, p4, p5, p6, p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最左的2个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -52,7 +62,6 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p3, p4, p5, p6, p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最左的3个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -61,7 +70,6 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p4, p5, p6, p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最左的4个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -70,7 +78,6 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p5, p6, p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最左的5个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -79,7 +86,6 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p6, p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最左的6个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -88,11 +94,8 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     // endregion: apply from left
-
     // region: apply from right
-
     /**
      * 绑定最右的1个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -101,7 +104,6 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p1, p2, p3, p4, p5, p6) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最右的2个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -110,7 +112,6 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p1, p2, p3, p4, p5) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最右的3个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -119,7 +120,6 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p1, p2, p3, p4) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最右的4个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -128,7 +128,6 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p1, p2, p3) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最右的5个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -137,7 +136,6 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p1, p2) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最右的6个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -146,8 +144,6 @@ public interface FuncE7<P1, P2, P3, P4, P5, P6, P7, R>
     {
         return (p1) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     // endregion: apply from right
-
     // endregion: currying
 }

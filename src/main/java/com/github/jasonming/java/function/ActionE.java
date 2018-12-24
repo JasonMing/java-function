@@ -22,9 +22,9 @@ public interface ActionE
      * <p>
      * {@code map(ActionE.of(() -> foo())); }
      *
-     * @param f 能适配ActionE的lambda表达式或任意实例
+     * @param f 能适配ActionE的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static ActionE of(final ActionE f)
     {
@@ -32,22 +32,37 @@ public interface ActionE
     }
 
     /**
-     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code ret}作为返回值。
+     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code null}作为返回值。
      *
-     * @param ret 作为Function的返回值
-     * @param <R> Function返回值的类型
+     * @param <R> Function返回值的类型。
      *
-     * @return 参数个数相同的Func
+     * @return 参数个数相同的Func。
      *
      * @apiNote <code><b>void</b> invoke()</code> &#8658; <code><b>R</b> invoke()</code>
      */
     @Override
-    default <R> FuncE<R> toFunc(final R ret)
+    default <R> FuncE<R> toFunc()
+    {
+        return this.toFunc(null);
+    }
+
+    /**
+     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code returnValue}作为返回值。
+     *
+     * @param returnValue 作为Function的返回值。
+     * @param <R>         Function返回值的类型。
+     *
+     * @return 参数个数相同的Func。
+     *
+     * @apiNote <code><b>void</b> invoke()</code> &#8658; <code><b>R</b> invoke()</code>
+     */
+    @Override
+    default <R> FuncE<R> toFunc(final R returnValue)
     {
         return () ->
         {
             this.invokeV();
-            return ret;
+            return returnValue;
         };
     }
 }

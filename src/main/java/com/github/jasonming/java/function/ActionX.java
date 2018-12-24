@@ -22,13 +22,48 @@ public interface ActionX<X extends Throwable>
      * <p>
      * {@code map(ActionX.of(() -> foo())); }
      *
-     * @param f 能适配ActionX的lambda表达式或任意实例
+     * @param f 能适配ActionX的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static <X extends Throwable> ActionX<X> of(final ActionX<X> f)
     {
         return f;
+    }
+
+    /**
+     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code null}作为返回值。
+     *
+     * @param <R> Function返回值的类型。
+     *
+     * @return 参数个数相同的Func。
+     *
+     * @apiNote <code><b>void</b> invoke()</code> &#8658; <code><b>R</b> invoke()</code>
+     */
+    @Override
+    default <R> FuncX<R, X> toFunc()
+    {
+        return this.toFunc(null);
+    }
+
+    /**
+     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code returnValue}作为返回值。
+     *
+     * @param returnValue 作为Function的返回值。
+     * @param <R>         Function返回值的类型。
+     *
+     * @return 参数个数相同的Func。
+     *
+     * @apiNote <code><b>void</b> invoke()</code> &#8658; <code><b>R</b> invoke()</code>
+     */
+    @Override
+    default <R> FuncX<R, X> toFunc(final R returnValue)
+    {
+        return () ->
+        {
+            this.invokeV();
+            return returnValue;
+        };
     }
 
     @Override
@@ -42,24 +77,4 @@ public interface ActionX<X extends Throwable>
      * 执行此Action，并不返回任何值，期间可能会抛出类型为{@link X}的异常。
      */
     void invokeVX() throws X;
-
-    /**
-     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code ret}作为返回值。
-     *
-     * @param ret 作为Function的返回值
-     * @param <R> Function返回值的类型
-     *
-     * @return 参数个数相同的Func
-     *
-     * @apiNote <code><b>void</b> invoke()</code> &#8658; <code><b>R</b> invoke()</code>
-     */
-    @Override
-    default <R> FuncX<R, X> toFunc(final R ret)
-    {
-        return () ->
-        {
-            this.invokeV();
-            return ret;
-        };
-    }
 }

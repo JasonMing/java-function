@@ -9,7 +9,7 @@ package com.github.jasonming.java.function;
  */
 @FunctionalInterface
 public interface FuncX2<P1, P2, R, X extends Throwable>
-        extends Func2<P1, P2, R>, ActionX2<P1, P2, X>
+        extends Func2<P1, P2, R>
 {
     /**
      * 为lambda表达式提供简便的类型声明。
@@ -22,13 +22,26 @@ public interface FuncX2<P1, P2, R, X extends Throwable>
      * <p>
      * {@code map(FuncX2.of((p1, p2) -> foo())); }
      *
-     * @param f 能适配FuncX2的lambda表达式或任意实例
+     * @param f 能适配FuncX2的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static <P1, P2, R, X extends Throwable> FuncX2<P1, P2, R, X> of(final FuncX2<P1, P2, R, X> f)
     {
         return f;
+    }
+
+    /**
+     * 忽略Func的返回值使其适配对应的Action。
+     *
+     * @return 参数个数相同的Action。
+     *
+     * @apiNote <code><b>R</b> invoke(p1, p2)</code> &#8658; <code><b>void</b> invoke(p1, p2)</code>
+     */
+    @Override
+    default ActionX2<P1, P2, X> asAction()
+    {
+        return this::invoke;
     }
 
     @Override
@@ -43,22 +56,8 @@ public interface FuncX2<P1, P2, R, X extends Throwable>
      */
     R invokeX(P1 p1, P2 p2) throws X;
 
-    @Override
-    default void invokeV(final P1 p1, final P2 p2)
-    {
-        Func2.super.invokeV(p1, p2);
-    }
-
-    @Override
-    default void invokeVX(final P1 p1, final P2 p2) throws X
-    {
-        this.invokeX(p1, p2);
-    }
-
     // region: currying
-
     // region: apply from left
-
     /**
      * 绑定最左的1个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -67,11 +66,8 @@ public interface FuncX2<P1, P2, R, X extends Throwable>
     {
         return (p2) -> this.invoke(p1, p2);
     }
-
     // endregion: apply from left
-
     // region: apply from right
-
     /**
      * 绑定最右的1个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -80,8 +76,6 @@ public interface FuncX2<P1, P2, R, X extends Throwable>
     {
         return (p1) -> this.invoke(p1, p2);
     }
-
     // endregion: apply from right
-
     // endregion: currying
 }

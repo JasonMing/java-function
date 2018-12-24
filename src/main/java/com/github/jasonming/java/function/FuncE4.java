@@ -9,7 +9,7 @@ package com.github.jasonming.java.function;
  */
 @FunctionalInterface
 public interface FuncE4<P1, P2, P3, P4, R>
-        extends FuncX4<P1, P2, P3, P4, R, Exception>, ActionE4<P1, P2, P3, P4>
+        extends FuncX4<P1, P2, P3, P4, R, Exception>
 {
     /**
      * 为lambda表达式提供简便的类型声明。
@@ -22,19 +22,30 @@ public interface FuncE4<P1, P2, P3, P4, R>
      * <p>
      * {@code map(FuncE4.of((p1, p2, p3, p4) -> foo())); }
      *
-     * @param f 能适配FuncE4的lambda表达式或任意实例
+     * @param f 能适配FuncE4的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static <P1, P2, P3, P4, R> FuncE4<P1, P2, P3, P4, R> of(final FuncE4<P1, P2, P3, P4, R> f)
     {
         return f;
     }
 
+    /**
+     * 忽略Func的返回值使其适配对应的Action。
+     *
+     * @return 参数个数相同的Action。
+     *
+     * @apiNote <code><b>R</b> invoke(p1, p2, p3, p4)</code> &#8658; <code><b>void</b> invoke(p1, p2, p3, p4)</code>
+     */
+    @Override
+    default ActionE4<P1, P2, P3, P4> asAction()
+    {
+        return this::invoke;
+    }
+
     // region: currying
-
     // region: apply from left
-
     /**
      * 绑定最左的1个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -43,7 +54,6 @@ public interface FuncE4<P1, P2, P3, P4, R>
     {
         return (p2, p3, p4) -> this.invoke(p1, p2, p3, p4);
     }
-
     /**
      * 绑定最左的2个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -52,7 +62,6 @@ public interface FuncE4<P1, P2, P3, P4, R>
     {
         return (p3, p4) -> this.invoke(p1, p2, p3, p4);
     }
-
     /**
      * 绑定最左的3个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -61,11 +70,8 @@ public interface FuncE4<P1, P2, P3, P4, R>
     {
         return (p4) -> this.invoke(p1, p2, p3, p4);
     }
-
     // endregion: apply from left
-
     // region: apply from right
-
     /**
      * 绑定最右的1个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -74,7 +80,6 @@ public interface FuncE4<P1, P2, P3, P4, R>
     {
         return (p1, p2, p3) -> this.invoke(p1, p2, p3, p4);
     }
-
     /**
      * 绑定最右的2个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -83,7 +88,6 @@ public interface FuncE4<P1, P2, P3, P4, R>
     {
         return (p1, p2) -> this.invoke(p1, p2, p3, p4);
     }
-
     /**
      * 绑定最右的3个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -92,8 +96,6 @@ public interface FuncE4<P1, P2, P3, P4, R>
     {
         return (p1) -> this.invoke(p1, p2, p3, p4);
     }
-
     // endregion: apply from right
-
     // endregion: currying
 }

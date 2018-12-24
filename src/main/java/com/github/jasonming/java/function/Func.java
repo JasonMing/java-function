@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  */
 @FunctionalInterface
 public interface Func<R>
-        extends Action, Supplier<R>
+        extends Supplier<R>
 {
     /**
      * 为lambda表达式提供简便的类型声明。
@@ -25,9 +25,9 @@ public interface Func<R>
      * <p>
      * {@code map(Func.of(() -> foo())); }
      *
-     * @param f 能适配Func的lambda表达式或任意实例
+     * @param f 能适配Func的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static <R> Func<R> of(final Func<R> f)
     {
@@ -35,15 +35,21 @@ public interface Func<R>
     }
 
     /**
+     * 忽略Func的返回值使其适配对应的Action。
+     *
+     * @return 参数个数相同的Action。
+     *
+     * @apiNote <code><b>R</b> invoke()</code> &#8658; <code><b>void</b> invoke()</code>
+     */
+    default Action asAction()
+    {
+        return this::invoke;
+    }
+
+    /**
      * 执行此Func，并返回类型为{@link R}的返回值。
      */
     R invoke();
-
-    @Override
-    default void invokeV()
-    {
-        this.invoke();
-    }
 
     @Override
     default R get()

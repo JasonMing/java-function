@@ -9,7 +9,7 @@ package com.github.jasonming.java.function;
  */
 @FunctionalInterface
 public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
-        extends Func7<P1, P2, P3, P4, P5, P6, P7, R>, ActionX7<P1, P2, P3, P4, P5, P6, P7, X>
+        extends Func7<P1, P2, P3, P4, P5, P6, P7, R>
 {
     /**
      * 为lambda表达式提供简便的类型声明。
@@ -22,13 +22,26 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
      * <p>
      * {@code map(FuncX7.of((p1, p2, p3, p4, p5, p6, p7) -> foo())); }
      *
-     * @param f 能适配FuncX7的lambda表达式或任意实例
+     * @param f 能适配FuncX7的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static <P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable> FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X> of(final FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X> f)
     {
         return f;
+    }
+
+    /**
+     * 忽略Func的返回值使其适配对应的Action。
+     *
+     * @return 参数个数相同的Action。
+     *
+     * @apiNote <code><b>R</b> invoke(p1, p2, p3, p4, p5, p6, p7)</code> &#8658; <code><b>void</b> invoke(p1, p2, p3, p4, p5, p6, p7)</code>
+     */
+    @Override
+    default ActionX7<P1, P2, P3, P4, P5, P6, P7, X> asAction()
+    {
+        return this::invoke;
     }
 
     @Override
@@ -43,22 +56,8 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
      */
     R invokeX(P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6, P7 p7) throws X;
 
-    @Override
-    default void invokeV(final P1 p1, final P2 p2, final P3 p3, final P4 p4, final P5 p5, final P6 p6, final P7 p7)
-    {
-        Func7.super.invokeV(p1, p2, p3, p4, p5, p6, p7);
-    }
-
-    @Override
-    default void invokeVX(final P1 p1, final P2 p2, final P3 p3, final P4 p4, final P5 p5, final P6 p6, final P7 p7) throws X
-    {
-        this.invokeX(p1, p2, p3, p4, p5, p6, p7);
-    }
-
     // region: currying
-
     // region: apply from left
-
     /**
      * 绑定最左的1个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -67,7 +66,6 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p2, p3, p4, p5, p6, p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最左的2个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -76,7 +74,6 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p3, p4, p5, p6, p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最左的3个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -85,7 +82,6 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p4, p5, p6, p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最左的4个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -94,7 +90,6 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p5, p6, p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最左的5个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -103,7 +98,6 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p6, p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最左的6个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -112,11 +106,8 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p7) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     // endregion: apply from left
-
     // region: apply from right
-
     /**
      * 绑定最右的1个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -125,7 +116,6 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p1, p2, p3, p4, p5, p6) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最右的2个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -134,7 +124,6 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p1, p2, p3, p4, p5) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最右的3个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -143,7 +132,6 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p1, p2, p3, p4) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最右的4个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -152,7 +140,6 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p1, p2, p3) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最右的5个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -161,7 +148,6 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p1, p2) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     /**
      * 绑定最右的6个参数到此Func上，并且返回带有剩余参数的Func。
      */
@@ -170,8 +156,6 @@ public interface FuncX7<P1, P2, P3, P4, P5, P6, P7, R, X extends Throwable>
     {
         return (p1) -> this.invoke(p1, p2, p3, p4, p5, p6, p7);
     }
-
     // endregion: apply from right
-
     // endregion: currying
 }

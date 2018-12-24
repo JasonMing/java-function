@@ -22,9 +22,9 @@ public interface ActionE3<P1, P2, P3>
      * <p>
      * {@code map(ActionE3.of((p1, p2, p3) -> foo())); }
      *
-     * @param f 能适配ActionE3的lambda表达式或任意实例
+     * @param f 能适配ActionE3的lambda表达式或任意实例。
      *
-     * @return {@code f}自身
+     * @return {@code f}自身。
      */
     static <P1, P2, P3> ActionE3<P1, P2, P3> of(final ActionE3<P1, P2, P3> f)
     {
@@ -33,9 +33,7 @@ public interface ActionE3<P1, P2, P3>
 
     // region: currying
 
-
     // region: apply from left
-
 
     /**
      * 绑定最左的1个参数到此Action上，并且返回带有剩余参数的Action。
@@ -46,7 +44,6 @@ public interface ActionE3<P1, P2, P3>
         return (p2, p3) -> this.invokeV(p1, p2, p3);
     }
 
-
     /**
      * 绑定最左的2个参数到此Action上，并且返回带有剩余参数的Action。
      */
@@ -56,12 +53,9 @@ public interface ActionE3<P1, P2, P3>
         return (p3) -> this.invokeV(p1, p2, p3);
     }
 
-
     // endregion: apply from left
 
-
     // region: apply from right
-
 
     /**
      * 绑定最右的1个参数到此Action上，并且返回带有剩余参数的Action。
@@ -72,7 +66,6 @@ public interface ActionE3<P1, P2, P3>
         return (p1, p2) -> this.invokeV(p1, p2, p3);
     }
 
-
     /**
      * 绑定最右的2个参数到此Action上，并且返回带有剩余参数的Action。
      */
@@ -82,29 +75,42 @@ public interface ActionE3<P1, P2, P3>
         return (p1) -> this.invokeV(p1, p2, p3);
     }
 
-
     // endregion: apply from right
-
 
     // endregion: currying
 
     /**
-     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code ret}作为返回值。
+     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code null}作为返回值。
      *
-     * @param ret 作为Function的返回值
-     * @param <R> Function返回值的类型
+     * @param <R> Function返回值的类型。
      *
-     * @return 参数个数相同的Func
+     * @return 参数个数相同的Func。
      *
      * @apiNote <code><b>void</b> invoke(p1, p2, p3)</code> &#8658; <code><b>R</b> invoke(p1, p2, p3)</code>
      */
     @Override
-    default <R> FuncE3<P1, P2, P3, R> toFunc(final R ret)
+    default <R> FuncE3<P1, P2, P3, R> toFunc()
+    {
+        return this.toFunc(null);
+    }
+
+    /**
+     * 扩展Action的返回值到{@code <R>}使其转换为对应的Func，并使用{@code returnValue}作为返回值。
+     *
+     * @param returnValue 作为Function的返回值。
+     * @param <R>         Function返回值的类型。
+     *
+     * @return 参数个数相同的Func。
+     *
+     * @apiNote <code><b>void</b> invoke(p1, p2, p3)</code> &#8658; <code><b>R</b> invoke(p1, p2, p3)</code>
+     */
+    @Override
+    default <R> FuncE3<P1, P2, P3, R> toFunc(final R returnValue)
     {
         return (p1, p2, p3) ->
         {
             this.invokeV(p1, p2, p3);
-            return ret;
+            return returnValue;
         };
     }
 }

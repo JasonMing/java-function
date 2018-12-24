@@ -12,7 +12,7 @@ import java.nio.file.Paths
 
 private val X = object { }
 
-private const val PACKAGE = "com.github.jasonming.jfunc"
+private const val PACKAGE = "com.github.jasonming.java.function"
 
 fun main(args: Array<String>)
 {

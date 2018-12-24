@@ -64,7 +64,6 @@ fun apply(func: FunctionDeclaration, override: Boolean = false, invokeMethod: St
         {
             return (${funcRest.genericParameters.args.mapToName()}) -> this.$invokeMethod(${func.genericParameters.args.mapToName()});
         }
-
         """.toTemplate(hasOverride = override)
     }
 
@@ -81,19 +80,18 @@ fun apply(func: FunctionDeclaration, override: Boolean = false, invokeMethod: St
         {
             return (${funcRest.genericParameters.args.mapToName()}) -> this.$invokeMethod(${func.genericParameters.args.mapToName()});
         }
-
         """.toTemplate(hasOverride = override)
     }
     val emptyLine = ""
-    val applyLGroup = listOf(sequenceOf("// region: apply from left", emptyLine)) + applyL + listOf(sequenceOf("// endregion: apply from left", emptyLine))
-    val applyRGroup = listOf(sequenceOf("// region: apply from right", emptyLine)) + applyR + listOf(sequenceOf("// endregion: apply from right"))
+    val applyLGroup = listOf(sequenceOf("// region: apply from left")) + applyL + listOf(sequenceOf("// endregion: apply from left"))
+    val applyRGroup = listOf(sequenceOf("// region: apply from right")) + applyR + listOf(sequenceOf("// endregion: apply from right"))
 
-    val applyGroup = listOf(sequenceOf("// region: currying", emptyLine)) + (applyLGroup + applyRGroup) + listOf(sequenceOf(emptyLine, "// endregion: currying"))
+    val applyGroup = listOf(sequenceOf("// region: currying")) + (applyLGroup + applyRGroup) + listOf(sequenceOf("// endregion: currying"))
 
     return applyGroup.asSequence().withToString()
 }
 
-fun toAction(func: FunctionDeclaration, override: Boolean = false): MemberBody
+fun asAction(func: FunctionDeclaration, override: Boolean = false): MemberBody
 {
     val voidReturnFunc = func.copy(
         funcType = FunctionType.Action,
@@ -106,12 +104,12 @@ fun toAction(func: FunctionDeclaration, override: Boolean = false): MemberBody
         /**
          * 忽略${func.type}的返回值使其适配对应的${voidReturnFunc.type}。
          *
-         * @return 参数个数相同的${voidReturnFunc.type}
+         * @return 参数个数相同的${voidReturnFunc.type}。
          *
          * @apiNote <code><b>R</b> invoke($args)</code> &#8658; <code><b>void</b> invoke($args)</code>
          */
         @Override
-        default ${voidReturnFunc.genericType} toAction()
+        default ${voidReturnFunc.genericType} asAction()
         {
             return this::invoke;
         }
@@ -128,47 +126,48 @@ fun toFunc(func: FunctionDeclaration, override: Boolean = false): Sequence<Membe
     )
     val args = func.genericParameters.args.mapToName()
 
-    //    val toFunc = """
-    ///**
-    // * 扩展${func.type}的返回值到{@code <R>}使其转换为对应的${withReturnFunc.type}，并使用{@code null}作为返回值。
-    // *
-    // * @param <R> Function返回值的类型
-    // *
-    // * @return 参数个数相同的${withReturnFunc.type}
-    // *
-    // * @apiNote <code><b>void</b> invoke($args)</code> &#8658; <code><b>R</b> invoke($args)</code>
-    // */
-    //@Override
-    //default <R> ${withReturnFunc.genericType} toFunc()
-    //{
-    //    return this.toFunc(null);
-    //}
-    //""".toTemplate(hasOverride = override)
-
-    val toFuncRet =
+    val toFunc =
         """
         /**
-         * 扩展${func.type}的返回值到{@code <R>}使其转换为对应的${withReturnFunc.type}，并使用{@code ret}作为返回值。
+         * 扩展${func.type}的返回值到{@code <R>}使其转换为对应的${withReturnFunc.type}，并使用{@code null}作为返回值。
          *
-         * @param ret 作为Function的返回值
-         * @param <R> Function返回值的类型
+         * @param <R> Function返回值的类型。
          *
-         * @return 参数个数相同的${withReturnFunc.type}
+         * @return 参数个数相同的${withReturnFunc.type}。
          *
          * @apiNote <code><b>void</b> invoke($args)</code> &#8658; <code><b>R</b> invoke($args)</code>
          */
         @Override
-        default <R> ${withReturnFunc.genericType} toFunc(final R ret)
+        default <R> ${withReturnFunc.genericType} toFunc()
+        {
+            return this.toFunc(null);
+        }
+        """.toTemplate(hasOverride = override)
+
+    val toFuncRet =
+        """
+        /**
+         * 扩展${func.type}的返回值到{@code <R>}使其转换为对应的${withReturnFunc.type}，并使用{@code returnValue}作为返回值。
+         *
+         * @param returnValue 作为Function的返回值。
+         * @param <R>         Function返回值的类型。
+         *
+         * @return 参数个数相同的${withReturnFunc.type}。
+         *
+         * @apiNote <code><b>void</b> invoke($args)</code> &#8658; <code><b>R</b> invoke($args)</code>
+         */
+        @Override
+        default <R> ${withReturnFunc.genericType} toFunc(final R returnValue)
         {
             return ($args) ->
             {
                 this.invokeV($args);
-                return ret;
+                return returnValue;
             };
         }
         """.toTemplate(hasOverride = override)
 
-    return sequenceOf(/*toFunc,*/ toFuncRet).withToString()
+    return sequenceOf(toFunc, toFuncRet).withToString()
 }
 
 fun propagate(func: FunctionDeclaration, override: Boolean = false): Sequence<MemberBody>
@@ -180,7 +179,7 @@ fun propagate(func: FunctionDeclaration, override: Boolean = false): Sequence<Me
         /**
          * 将有异常声明函数转换为无异常声明的函数，函数中抛出的所有异常均被<b>原样</b>抛出。
          *
-         * @return 参数个数相同但无异常声明的${nothrowFunc.type}
+         * @return 参数个数相同但无异常声明的${nothrowFunc.type}。
          *
          * @apiNote
          * 借助泛型擦除特性，虽然在实际字节码层面 {@code invoke() throws X} 声明抛出的仍是{@code X}（上界 {@link Throwable}）。<br>
@@ -231,9 +230,9 @@ fun of(func: FunctionDeclaration): MemberBody
          * <p>
          * {@code map(${declFunc.rawType}.of((${arguments(func.argSize)}) -> foo())); }
          *
-         * @param f 能适配${declFunc.rawType}的lambda表达式或任意实例
+         * @param f 能适配${declFunc.rawType}的lambda表达式或任意实例。
          *
-         * @return {@code f}自身
+         * @return {@code f}自身。
          */
         static $genericParameters${declFunc.genericType} of(final ${declFunc.genericType} f)
         {
